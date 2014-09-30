@@ -37,6 +37,21 @@ Plugin 'Raimondi/delimitMate'
 let delimitMate_expand_cr=1
 let delimitMate_expand_space=1
 
+" YouCompleteMe
+Plugin 'valloric/YouCompleteMe'
+let g:ycm_add_preview_to_completeopt=0
+let g:ycm_confirm_extra_conf=0
+set completeopt-=preview
+
+" Vim javascript syntax
+Plugin 'jelera/vim-javascript-syntax'
+
+" Vim javascript
+Plugin 'pangloss/vim-javascript'
+
+" Vim indent guides
+Plugin 'nathanaelkane/vim-indent-guides'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required

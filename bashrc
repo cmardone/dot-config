@@ -112,29 +112,32 @@ else
     BOLD=""
     RESET="\033[m"
 fi
-
-parse_git_branch () {
-    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/*\ \(.*\)/\1/"
+parse_git_dirty () {
+    [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean"  ]] && echo "*"
 }
 render_git_status () {
     STATUS=""
     CHANGES=""
     if [[ -n $(git branch 2> /dev/null) ]]; then
         if [[ -n $(parse_git_dirty) ]]; then
-            STATUS=$STATUS"$RED($(parse_git_branch)"
-            [[ $(git status -s | grep '??' | wc -l) -gt 0 ]] && CHANGES=$CHANGES$GREEN"+$(git status -s | grep '??' | wc -l)"
-            [[ $(git status -s | grep 'M' | wc -l) -gt 0 ]] && CHANGES=$CHANGES$YELLOW"+$(git status -s | grep 'M' | wc -l)"
-            [[ $(git status -s | grep 'D' | wc -l) -gt 0 ]] && CHANGES=$CHANGES$RED"-$(git status -s | grep 'D' | wc -l)"
-            STATUS=$STATUS"$RED"
+            STATUS="$STATUS\[${RED}\]$(__git_ps1)"
+            COUNT=$(git status -s | grep ?? | wc -l)
+            [[ $COUNT -gt 0 ]] && CHANGES="$CHANGES\[$GREEN\]+$COUNT"
+            COUNT=$(git status -s | grep M | wc -l)
+            [[ $COUNT -gt 0 ]] && CHANGES="$CHANGES\[$YELLOW\]+$COUNT"
+            COUNT=$(git status -s | grep D | wc -l)
+            [[ $COUNT -gt 0 ]] && CHANGES="$CHANGES\[$RED\]-$COUNT"
+            STATUS="$STATUS\[$RED\]"
         else
-            STATUS=$STATUS"$GREEN($(parse_git_branch)$GREEN"
+            STATUS="$STATUS\[$GREEN\]$(__git_ps1)\[$GREEN\]"
         fi
-        [[ ${#CHANGES} -gt 0 ]] && STATUS=$STATUS" $CHANGES"
-        echo $STATUS")"
+        [[ ${#CHANGES} -gt 0 ]] && STATUS="$STATUS $CHANGES"
     fi
+    PS1="\[${GREEN}\][\[${VIOLET}\]\A\[${GREEN}\]][\[${CYAN}\]\u@\h:\[$ORANGE\]\w\[${GREEN}\]]$STATUS\[$GREEN\] \$ \[$RESET\]"
 }
 
-PS1="\[${GREEN}\][\[${VIOLET}\]\A\[${GREEN}\]][\[${CYAN}\]\u@\h:\[$ORANGE\]\w\[${GREEN}\]]\[$BASE0\]\$(render_git_status)\[$GREEN\] \$ \[$RESET\]"
+PROMPT_COMMAND=render_git_status
+render_git_status
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
