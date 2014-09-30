@@ -49,8 +49,13 @@ Plugin 'jelera/vim-javascript-syntax'
 " Vim javascript
 Plugin 'pangloss/vim-javascript'
 
-" Vim indent guides
-Plugin 'nathanaelkane/vim-indent-guides'
+" Vim indentLine
+Plugin 'Yggdroot/indentLine'
+let g:indentLine_enabled = 1
+let g:indentLine_Loaded = 1
+let g:indentLine_fileTypeExclude = ['sh', 'text']
+let g:indentLine_char = "\u22EE"
+let g:indentLine_first_char = "\u22EE"
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -59,7 +64,7 @@ filetype plugin indent on    " required
 " Vim5 and later versions support syntax highlighting. Uncommenting the next
 " line enables syntax highlighting by default.
 if has("syntax")
-  syntax on
+    syntax on
 endif
 
 " Theme config
@@ -69,7 +74,7 @@ colorscheme solarized
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
 if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
 " The following are commented out as they cause vim to behave a lot
