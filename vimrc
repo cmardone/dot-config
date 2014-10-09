@@ -1,4 +1,5 @@
 set nocompatible              " be iMproved, required
+filetype off
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -34,14 +35,15 @@ autocmd VimEnter * call AirlineInit()
 
 " delimitMate
 Plugin 'Raimondi/delimitMate'
-let delimitMate_expand_cr=1
-let delimitMate_expand_space=1
+let delimitMate_expand_cr = 1
+let delimitMate_expand_space = 1
 
 " YouCompleteMe
 Plugin 'valloric/YouCompleteMe'
-let g:ycm_add_preview_to_completeopt=0
-let g:ycm_confirm_extra_conf=0
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_confirm_extra_conf = 0
 set completeopt-=preview
+let g:ycm_use_ultisnips_completer = 1
 
 " Vim javascript syntax
 Plugin 'jelera/vim-javascript-syntax'
@@ -56,6 +58,24 @@ let g:indentLine_Loaded = 1
 let g:indentLine_fileTypeExclude = ['sh', 'text']
 let g:indentLine_char = "\u22EE"
 let g:indentLine_first_char = "\u22EE"
+
+" Tern for Vim
+Plugin 'marijnh/tern_for_vim'
+
+" UltiSnips
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+let g:UltiSnipsSnippetsDir = "bundle/vim-snippets/UltiSnips"
+let g:UltiSnipsExpandTrigger="<C-c><Enter>"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
+let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+
+" vim-commentary
+Plugin 'tpope/vim-commentary'
+
+" Emmet
+Plugin 'mattn/emmet-vim'
+let g:user_emmet_leader_key='<C-Z>'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -84,6 +104,7 @@ if has ('win32')
 else
     set guifont=Monaco\ for\ Powerline\ 9
 endif
+let mapleader = ","
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
