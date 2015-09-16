@@ -1,27 +1,27 @@
-set nocompatible              " be iMproved, required
-filetype off
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'gmarik/Vundle.vim'
+" Vim-plug
+" Inicializar Vim-plug
+ if has("win32") || has("win64")
+    call plug#begin('~/vimfiles/plugins')
+else
+    call plug#begin('~/.vim/plugins')
+end
 
 " Solarized
-Plugin 'altercation/vim-colors-solarized'
+Plug 'altercation/vim-colors-solarized'
 set t_Co=256
 let g:solarized_termcolors=256
 let g:solarized_visibility='normal'
 let g:solarized_termtrans=1
 
 " Git Fugitive
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 " Vim Airline
-Plugin 'bling/vim-airline'
+Plug 'bling/vim-airline'
 set laststatus=2
 let g:airline_powerline_fonts = 1
-let g:airline_enable_branch = 1
-let g:airline_enable_syntastic = 1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#syntastic#enabled = 1
 let g:airline_theme = 'solarized'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
@@ -33,53 +33,59 @@ if has('gui_running')
 endif
 autocmd VimEnter * call AirlineInit()
 
-" delimitMate
-Plugin 'Raimondi/delimitMate'
-let delimitMate_expand_cr = 1
-let delimitMate_expand_space = 1
+" Auto-Pairs
+Plug 'jiangmiao/auto-pairs'
+let g:AutoPairsFlyMode = 0
 
-" YouCompleteMe
-Plugin 'valloric/YouCompleteMe'
-let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_confirm_extra_conf = 0
-set completeopt-=preview
-let g:ycm_use_ultisnips_completer = 1
-
+" if has("win32") || has("win64")
+" else
+"     " YouCompleteMe
+"     Plugin 'valloric/YouCompleteMe'
+"     let g:ycm_add_preview_to_completeopt = 0
+"     let g:ycm_confirm_extra_conf = 0
+"     set completeopt-=preview
+"     let g:ycm_use_ultisnips_completer = 1
+" endif
+"
 " Vim javascript syntax
-Plugin 'jelera/vim-javascript-syntax'
+Plug 'jelera/vim-javascript-syntax'
 
 " Vim javascript
-Plugin 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript'
 
 " Vim indentLine
-Plugin 'Yggdroot/indentLine'
-let g:indentLine_enabled = 1
-let g:indentLine_Loaded = 1
-let g:indentLine_fileTypeExclude = ['sh', 'text']
-let g:indentLine_char = "\u22EE"
-let g:indentLine_first_char = "\u22EE"
+"Plug 'Yggdroot/indentLine'
+"let g:indentLine_enabled = 1
+"let g:indentLine_loaded = 1
+"let g:indentLine_fileTypeExclude = ['sh', 'text']
+"let g:indentLine_char = "\u22EE"
+"let g:indentLine_char = "┆"
+"let g:indentLine_first_char = "\u22EE"
 
-" Tern for Vim
-Plugin 'marijnh/tern_for_vim'
+" Vim indent guides
+Plug 'nathanaelkane/vim-indent-guides'
+let g:indent_guides_enable_on_vim_startup = 1
 
-" UltiSnips
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-let g:UltiSnipsSnippetsDir = "bundle/vim-snippets/UltiSnips"
+" " Tern for Vim
+" Plugin 'marijnh/tern_for_vim'
+"
+" " UltiSnips
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+let g:UltiSnipsSnippetsDir = "plugins/vim-snippets/UltiSnips"
 let g:UltiSnipsExpandTrigger="<C-c><Enter>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 
 " vim-commentary
-Plugin 'tpope/vim-commentary'
+Plug 'tpope/vim-commentary'
 
 " Emmet
-Plugin 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim'
 let g:user_emmet_leader_key='<C-Z>'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+" Inicializar Vim-plug
+call plug#end()
+filetype plugin indent on
 
 " Vim5 and later versions support syntax highlighting. Uncommenting the next
 " line enables syntax highlighting by default.
@@ -99,11 +105,19 @@ endif
 
 " The following are commented out as they cause vim to behave a lot
 " differently from regular Vi. They are highly recommended though.
-if has ('win32')
-    set guifont=Powerline_Consolas:h9
+if has("win32") || has("win64")
+    set guifont=Monaco\ for\ Powerline:h9:cANSI
+    "set renderoptions=type:directx,renmode:5
 else
     set guifont=Monaco\ for\ Powerline\ 9
 endif
+
+" Setear tamaño ventana windows
+if has("gui_running")
+    set columns=100
+    set lines=40
+endif
+
 let mapleader = ","
 set tabstop=4
 set softtabstop=4
@@ -120,3 +134,4 @@ set autowrite		" Automatically save before commands like :next and :make
 set autoindent
 "set hidden		" Hide buffers when they are abandoned
 set mouse=a		" Enable mouse usage (all modes)
+set enc=utf8		" Usar juego de caracteres UTF-8
