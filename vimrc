@@ -3,7 +3,7 @@
  if has("win32") || has("win64")
     call plug#begin('~/vimfiles/plugins')
 else
-    call plug#begin('~/.vim/plugins')
+    call plug#begin('~/.config/nvim/plugins')
 end
 
 " Solarized
@@ -16,8 +16,11 @@ let g:solarized_termtrans=1
 " Git Fugitive
 Plug 'tpope/vim-fugitive'
 
+" Vim Airline Themes
+Plug 'vim-airline/vim-airline-themes'
+
 " Vim Airline
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
 set laststatus=2
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#branch#enabled = 1
@@ -37,16 +40,10 @@ autocmd VimEnter * call AirlineInit()
 Plug 'jiangmiao/auto-pairs'
 let g:AutoPairsFlyMode = 0
 
-" if has("win32") || has("win64")
-" else
-"     " YouCompleteMe
-"     Plugin 'valloric/YouCompleteMe'
-"     let g:ycm_add_preview_to_completeopt = 0
-"     let g:ycm_confirm_extra_conf = 0
-"     set completeopt-=preview
-"     let g:ycm_use_ultisnips_completer = 1
-" endif
-"
+" Deoplete (autocompletion)
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+let g:deoplete#enable_at_startup = 1
+
 " Vim javascript syntax
 Plug 'jelera/vim-javascript-syntax'
 
@@ -54,21 +51,18 @@ Plug 'jelera/vim-javascript-syntax'
 Plug 'pangloss/vim-javascript'
 
 " Vim indentLine
-"Plug 'Yggdroot/indentLine'
-"let g:indentLine_enabled = 1
-"let g:indentLine_loaded = 1
-"let g:indentLine_fileTypeExclude = ['sh', 'text']
-"let g:indentLine_char = "\u22EE"
-"let g:indentLine_char = "┆"
-"let g:indentLine_first_char = "\u22EE"
+Plug 'Yggdroot/indentLine'
+let g:indentLine_enabled = 1
+let g:indentLine_loaded = 1
+let g:indentLine_fileTypeExclude = ['sh', 'text']
+let g:indentLine_char = "\u22EE"
+let g:indentLine_char = "┆"
+let g:indentLine_first_char = "\u22EE"
 
 " Vim indent guides
-Plug 'nathanaelkane/vim-indent-guides'
-let g:indent_guides_enable_on_vim_startup = 1
+"Plug 'nathanaelkane/vim-indent-guides'
+"let g:indent_guides_enable_on_vim_startup = 1
 
-" " Tern for Vim
-" Plugin 'marijnh/tern_for_vim'
-"
 " " UltiSnips
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 let g:UltiSnipsSnippetsDir = "plugins/vim-snippets/UltiSnips"
